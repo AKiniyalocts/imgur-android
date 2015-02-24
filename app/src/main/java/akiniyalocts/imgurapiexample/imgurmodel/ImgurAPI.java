@@ -8,8 +8,14 @@ import retrofit.mime.TypedFile;
 
 /**
  * Created by AKiniyalocts on 2/23/15.
+ *
+ * This is our imgur API. It generates a rest API via Retrofit from Square inc.
+ *
+ * more here: http://square.github.io/retrofit/
  */
 public interface ImgurAPI {
+  public static String server = "https://api.imgur.com";
+
 
   /****************************************
    * Upload

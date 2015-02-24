@@ -9,6 +9,8 @@ import java.net.UnknownHostException;
 
 /**
  * Created by AKiniyalocts on 1/15/15.
+ *
+ * Basic network utils
  */
 public class NetworkUtils {
   public static final String TAG = NetworkUtils.class.getSimpleName();
@@ -51,7 +53,4 @@ public class NetworkUtils {
     return reachable;
   }
 
-  public static boolean checkConnection(Context mContext){
-    return ((connectionReachable()) && (isConnected(mContext)));
-  }
 }
