@@ -14,7 +14,7 @@ public class Constants {
 
       More here: https://api.imgur.com/
      */
-    public static final String MY_IMGUR_CLIENT_ID = "0b7261a333a28b9";
+    public static final String MY_IMGUR_CLIENT_ID = "";
     public static final String MY_IMGUR_CLIENT_SECRET = "";
 
     /*
