@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         returnUri = data.getData();
         String filePath = DocumentHelper.getPath(this, returnUri);
         //Safety check to prevent null pointer exception
-        if(filePath == null || filePath.isEmpty()) return;
+        if (filePath == null || filePath.isEmpty()) return;
         chosenFile = new File(filePath);
 
                 /*
@@ -91,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
         uploadDesc.clearFocus();
         uploadTitle.clearFocus();
         IntentHelper.chooseFileIntent(this);
+    }
+
+    private void clearInput() {
+        uploadTitle.setText("");
+        uploadDesc.clearFocus();
+        uploadDesc.setText("");
+        uploadTitle.clearFocus();
+        uploadImage.setImageResource(R.drawable.ic_photo_library_black);
     }
 
     @OnClick(R.id.fab)
@@ -119,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void success(ImageResponse imageResponse, Response response) {
-
+            clearInput();
         }
 
         @Override
