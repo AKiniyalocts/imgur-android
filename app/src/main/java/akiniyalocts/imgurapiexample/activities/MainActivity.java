@@ -3,8 +3,9 @@ package akiniyalocts.imgurapiexample.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -33,10 +34,11 @@ public class MainActivity extends AppCompatActivity implements OnImageUploadedLi
     https://github.com/JakeWharton/butterknife
 
    */
-  @Bind(R.id.upload_image)ImageView uploadImage;
-  @Bind(R.id.upload_btn)Button uploadBtn;
-  @Bind(R.id.upload_title)EditText uploadTitle;
-  @Bind(R.id.upload_desc)EditText uploadDesc;
+  @Bind(R.id.image)ImageView uploadImage;
+  @Bind(R.id.fab) FloatingActionButton uploadBtn;
+  @Bind(R.id.editText_upload_title)EditText uploadTitle;
+  @Bind(R.id.editText_upload_desc)EditText uploadDesc;
+  @Bind(R.id.toolbar) Toolbar toolbar;
 
   private Upload upload; // Upload object containging image and meta data
   private File chosenFile; //chosen file from intent
@@ -46,9 +48,9 @@ public class MainActivity extends AppCompatActivity implements OnImageUploadedLi
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
+
+    setSupportActionBar(toolbar);
   }
-
-
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -75,16 +77,19 @@ public class MainActivity extends AppCompatActivity implements OnImageUploadedLi
 
   }
 
-  @OnClick(R.id.choose_btn)
+  @OnClick(R.id.image)
   public void onChooseImage(){
+    uploadDesc.clearFocus();
+    uploadTitle.clearFocus();
     IntentHelper.chooseFileIntent(this);
   }
 
-  @OnClick(R.id.upload_btn)
+  @OnClick(R.id.fab)
   public void uploadImage(){
     /*
       Create the @Upload object
      */
+    if(chosenFile == null) return;
     createUpload(chosenFile);
 
     /*
@@ -106,6 +111,5 @@ public class MainActivity extends AppCompatActivity implements OnImageUploadedLi
     upload.image = image;
     upload.title = uploadTitle.getText().toString();
     upload.description = uploadDesc.getText().toString();
-
   }
 }
