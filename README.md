@@ -16,9 +16,9 @@
 
 <h2>Results</h2>
 <p>
-  <img src="http://i.imgur.com/y6l7hRH.jpg" height=500 width=300></img>
-  <img src="http://i.imgur.com/GNCbCgb.png" height=500 width=300></img>
-  <img src="http://i.imgur.com/zV35BnV.png" height=500 width=300></img>
+  <img src="http://i.imgur.com/sSM5Hja.jpg" height=500 width=300></img>
+  <img src="http://i.imgur.com/CHrRpu6.png" height=500 width=300></img>
+  <img src="http://i.imgur.com/0LtqQXs.png" height=500 width=300></img>
 </p>
 
 
