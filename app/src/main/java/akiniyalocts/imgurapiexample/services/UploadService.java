@@ -1,16 +1,16 @@
 package akiniyalocts.imgurapiexample.services;
 
+import android.app.Activity;
+import android.os.AsyncTask;
+
+import java.io.File;
+
 import akiniyalocts.imgurapiexample.Constants;
 import akiniyalocts.imgurapiexample.helpers.NotificationHelper;
-import akiniyalocts.imgurapiexample.imgurmodel.BasicResponse;
 import akiniyalocts.imgurapiexample.imgurmodel.ImageResponse;
 import akiniyalocts.imgurapiexample.imgurmodel.ImgurAPI;
 import akiniyalocts.imgurapiexample.imgurmodel.Upload;
 import akiniyalocts.imgurapiexample.utils.NetworkUtils;
-import android.app.Activity;
-import android.os.AsyncTask;
-import java.io.File;
-import java.util.ArrayList;
 import retrofit.RestAdapter;
 import retrofit.mime.TypedFile;
 

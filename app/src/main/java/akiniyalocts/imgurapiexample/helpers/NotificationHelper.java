@@ -1,13 +1,14 @@
 package akiniyalocts.imgurapiexample.helpers;
 
-import akiniyalocts.imgurapiexample.R;
-import akiniyalocts.imgurapiexample.imgurmodel.ImageResponse;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+
+import akiniyalocts.imgurapiexample.R;
+import akiniyalocts.imgurapiexample.imgurmodel.ImageResponse;
 
 /**
  * Created by AKiniyalocts on 1/15/15.
