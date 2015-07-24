@@ -10,8 +10,8 @@ import akiniyalocts.imgurapiexample.services.UploadService;
 import akiniyalocts.imgurapiexample.utils.aLog;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
 import com.squareup.picasso.Picasso;
 import java.io.File;
 
-public class MainActivity extends ActionBarActivity implements OnImageUploadedListener{
+public class MainActivity extends AppCompatActivity implements OnImageUploadedListener{
   public final static String TAG = MainActivity.class.getSimpleName();
 
   /*
