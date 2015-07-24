@@ -10,14 +10,13 @@ import akiniyalocts.imgurapiexample.services.UploadService;
 import akiniyalocts.imgurapiexample.utils.aLog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import com.squareup.picasso.Picasso;
 import java.io.File;
@@ -31,10 +30,10 @@ public class MainActivity extends ActionBarActivity implements OnImageUploadedLi
     https://github.com/JakeWharton/butterknife
 
    */
-  @InjectView(R.id.upload_image)ImageView uploadImage;
-  @InjectView(R.id.upload_btn)Button uploadBtn;
-  @InjectView(R.id.upload_title)EditText uploadTitle;
-  @InjectView(R.id.upload_desc)EditText uploadDesc;
+  @Bind(R.id.upload_image)ImageView uploadImage;
+  @Bind(R.id.upload_btn)Button uploadBtn;
+  @Bind(R.id.upload_title)EditText uploadTitle;
+  @Bind(R.id.upload_desc)EditText uploadDesc;
 
   private Upload upload; // Upload object containging image and meta data
   private File chosenFile; //chosen file from intent
@@ -43,7 +42,7 @@ public class MainActivity extends ActionBarActivity implements OnImageUploadedLi
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    ButterKnife.inject(this);
+    ButterKnife.bind(this);
   }
 
 
