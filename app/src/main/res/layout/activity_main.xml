@@ -26,7 +26,7 @@
         tools:context=".MainActivity">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/imageview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -39,7 +39,7 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_title"
             style="@style/DefTextInputLayout"
-            android:layout_below="@+id/image"
+            android:layout_below="@+id/imageview"
             android:layout_centerVertical="true">
 
             <EditText

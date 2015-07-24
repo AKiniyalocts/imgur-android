@@ -32,7 +32,7 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme"></style>
+    <style name="AppTheme" parent="AppBaseTheme"/>
 
     <style name="DefEditText" parent="Widget.AppCompat.EditText">
         <item name="android:layout_height">wrap_content</item>
