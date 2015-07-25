@@ -1,7 +1,8 @@
 package akiniyalocts.imgurapiexample.utils;
 
-import akiniyalocts.imgurapiexample.Constants;
 import android.util.Log;
+
+import akiniyalocts.imgurapiexample.Constants;
 
 /**
  * Created by AKiniyalocts on 1/16/15.

@@ -10,7 +10,6 @@ public class ImageResponse {
   public int status;
   public UploadedImage data;
 
-
   public static class UploadedImage{
     public String id;
     public String title;

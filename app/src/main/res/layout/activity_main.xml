@@ -1,61 +1,77 @@
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:paddingLeft="@dimen/activity_horizontal_margin"
-      android:paddingRight="@dimen/activity_horizontal_margin"
-      android:paddingTop="@dimen/activity_vertical_margin"
-      android:paddingBottom="@dimen/activity_vertical_margin"
-      tools:context=".MainActivity">
-    <ImageView
+    android:layout_height="match_parent"
+    tools:context="akiniyalocts.imgurapiexample.activities.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="200dp"
-        android:id="@+id/upload_image"
-        android:layout_alignParentTop="true"
-        />
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/choose"
-        android:id="@+id/choose_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/upload_image"
-        />
-    <EditText
+    <!-- Dummy item to prevent TextView from receiving initial focus -->
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/upload_title"
-        android:hint="@string/title"
-        android:layout_below="@+id/choose_btn"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/upload_desc"
-        android:hint="@string/description"
-        android:layout_below="@+id/upload_title"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/upload"
-        android:id="@+id/upload_btn"
-        android:enabled="false"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/upload_desc"
-        />
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        tools:context=".MainActivity">
 
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:maxHeight="250dp"
+            android:minHeight="250dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_photo_library_black" />
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_title"
+            style="@style/DefTextInputLayout"
+            android:layout_below="@+id/imageview"
+            android:layout_centerVertical="true">
 
+            <EditText
+                android:id="@+id/editText_upload_title"
+                style="@style/DefEditText"
+                android:hint="@string/title"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
 
-  </RelativeLayout>
-</ScrollView>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_desc"
+            style="@style/DefTextInputLayout"
+            android:layout_below="@id/til_title">
+
+            <EditText
+                android:id="@+id/editText_upload_desc"
+                style="@style/DefEditText"
+                android:hint="@string/description"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_cloud_upload"
+            app:fabSize="normal" />
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
