@@ -1,14 +1,16 @@
-package akiniyalocts.imgurapiexample.activities;
+package akiniyalocts.imgurapiexample.ui;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.akiniyalocts.imgur_api.ImgurClient;
+import com.akiniyalocts.imgur_api.model.Image;
+import com.akiniyalocts.imgur_api.model.ImgurResponse;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -16,15 +18,14 @@ import java.io.File;
 import akiniyalocts.imgurapiexample.R;
 import akiniyalocts.imgurapiexample.helpers.DocumentHelper;
 import akiniyalocts.imgurapiexample.helpers.IntentHelper;
-import akiniyalocts.imgurapiexample.imgurmodel.ImageResponse;
-import akiniyalocts.imgurapiexample.imgurmodel.Upload;
-import akiniyalocts.imgurapiexample.services.UploadService;
+import akiniyalocts.imgurapiexample.helpers.NotificationHelper;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedFile;
 
 public class MainActivity extends AppCompatActivity {
     public final static String TAG = MainActivity.class.getSimpleName();
@@ -42,14 +43,15 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    private Upload upload; // Upload object containging image and meta data
     private File chosenFile; //chosen file from intent
+    private NotificationHelper notificationHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        notificationHelper = new NotificationHelper(this);
 
         setSupportActionBar(toolbar);
     }
@@ -73,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
         if (filePath == null || filePath.isEmpty()) return;
         chosenFile = new File(filePath);
 
-                /*
-                    Picasso is a wonderful image loading tool from square inc.
-                    https://github.com/square/picasso
-                 */
+        /*
+            Picasso is a wonderful image loading tool from square inc.
+            https://github.com/square/picasso
+         */
         Picasso.with(getBaseContext())
                 .load(chosenFile)
                 .placeholder(R.drawable.ic_photo_library_black)
@@ -103,39 +105,33 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void uploadImage() {
-    /*
-      Create the @Upload object
-     */
-        if (chosenFile == null) return;
-        createUpload(chosenFile);
 
-    /*
-      Start upload
-     */
-        new UploadService(this).Execute(upload, new UiCallback());
-    }
+        if (chosenFile != null) {
 
-    private void createUpload(File image) {
-        upload = new Upload();
+            notificationHelper.createUploadingNotification();
 
-        upload.image = image;
-        upload.title = uploadTitle.getText().toString();
-        upload.description = uploadDesc.getText().toString();
-    }
+            ImgurClient.getInstance()
+                    .uploadImage(
+                            new TypedFile("image/*", chosenFile),
+                            uploadTitle.getText().toString(),
+                            uploadDesc.getText().toString(),
+                            new Callback<ImgurResponse<Image>>() {
+                                @Override
+                                public void success(ImgurResponse<Image> imageImgurResponse, Response response) {
+                                    notificationHelper.createUploadedNotification(imageImgurResponse);
+                                }
 
-    private class UiCallback implements Callback<ImageResponse> {
-
-        @Override
-        public void success(ImageResponse imageResponse, Response response) {
-            clearInput();
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    notificationHelper.createFailedUploadNotification();
+                                }
+                            }
+                    );
         }
 
-        @Override
-        public void failure(RetrofitError error) {
-            //Assume we have no connection, since error is null
-            if (error == null) {
-                Snackbar.make(findViewById(R.id.rootView), "No internet connection", Snackbar.LENGTH_SHORT).show();
-            }
-        }
+
     }
+
+
+
 }

@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import com.akiniyalocts.imgur_api.model.Image;
+import com.akiniyalocts.imgur_api.model.ImgurResponse;
+
 import java.lang.ref.WeakReference;
 
 import akiniyalocts.imgurapiexample.R;
-import akiniyalocts.imgurapiexample.imgurmodel.ImageResponse;
 
 /**
  * Created by AKiniyalocts on 1/15/15.
@@ -44,24 +46,24 @@ public class NotificationHelper {
 
     }
 
-    public void createUploadedNotification(ImageResponse response) {
+    public void createUploadedNotification(ImgurResponse<Image> response) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext.get());
         mBuilder.setSmallIcon(android.R.drawable.ic_menu_gallery);
         mBuilder.setContentTitle(mContext.get().getString(R.string.notifaction_success));
 
-        mBuilder.setContentText(response.data.link);
+        mBuilder.setContentText(response.data.getLink());
 
         mBuilder.setColor(mContext.get().getResources().getColor(R.color.primary));
 
 
-        Intent resultIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(response.data.link));
+        Intent resultIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(response.data.getLink()));
         PendingIntent intent = PendingIntent.getActivity(mContext.get(), 0, resultIntent, 0);
         mBuilder.setContentIntent(intent);
         mBuilder.setAutoCancel(true);
 
-        Intent shareIntent = new Intent(Intent.ACTION_SEND, Uri.parse(response.data.link));
+        Intent shareIntent = new Intent(Intent.ACTION_SEND, Uri.parse(response.data.getLink()));
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, response.data.link);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, response.data.getLink());
         shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         PendingIntent pIntent = PendingIntent.getActivity(mContext.get(), 0, shareIntent, 0);

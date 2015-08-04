@@ -7,7 +7,7 @@ public class Constants {
     /*
       Logging flag
      */
-    public static final boolean LOGGING = false;
+    public static final boolean LOGGING = true;
 
     /*
       Your imgur client id. You need this to upload to imgur.
