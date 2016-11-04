@@ -80,6 +80,7 @@ public class UploadService {
 
     private RestAdapter buildRestAdapter() {
         RestAdapter imgurAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(ImgurAPI.server)
                 .build();
 
