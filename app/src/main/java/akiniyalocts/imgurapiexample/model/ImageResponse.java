@@ -1,4 +1,4 @@
-package akiniyalocts.imgurapiexample.imgurmodel;
+package akiniyalocts.imgurapiexample.model;
 
 /**
  * Created by AKiniyalocts on 1/14/15.

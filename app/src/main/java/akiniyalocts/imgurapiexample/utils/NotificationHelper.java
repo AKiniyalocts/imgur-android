@@ -1,4 +1,4 @@
-package akiniyalocts.imgurapiexample.helpers;
+package akiniyalocts.imgurapiexample.utils;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import java.lang.ref.WeakReference;
 
 import akiniyalocts.imgurapiexample.R;
-import akiniyalocts.imgurapiexample.imgurmodel.ImageResponse;
+import akiniyalocts.imgurapiexample.model.ImageResponse;
 
 /**
  * Created by AKiniyalocts on 1/15/15.
