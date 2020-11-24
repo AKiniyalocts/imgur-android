@@ -12,7 +12,24 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+/**
+ * A Koin module encapsulating app-based dependencies.
+ */
 val appModule = module {
+
+    single {
+        androidContext().contentResolver
+    }
+
+    single<UploadRepository> {
+        UploadRepositoryImp(get(), get())
+    }
+}
+
+/**
+ * A Koin module encapsulating network-based dependencies.
+ */
+val networkModule = module {
     single {
         Retrofit.Builder()
             .baseUrl("https://api.imgur.com")
@@ -31,19 +48,15 @@ val appModule = module {
     }
 
     single {
-        androidContext().contentResolver
-    }
-
-    single {
         Moshi.Builder()
             .build()
     }
 
-    single<UploadRepository> {
-        UploadRepositoryImp(get(), get())
-    }
 }
 
+/**
+ * A Koin module encapsulating viewmodel dependencies.
+ */
 val viewModelModule = module {
     viewModel { MainViewModel(get()) }
 }

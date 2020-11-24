@@ -13,8 +13,16 @@ import java.io.FileOutputStream
 interface UploadRepository {
     suspend fun uploadFile(uri: Uri, title: String? = null): Result<Upload>
 }
+
 @Suppress("BlockingMethodInNonBlockingContext")
 class UploadRepositoryImp(private val imgurApi: ImgurApi, private val contentResolver: ContentResolver): UploadRepository{
+
+    /**
+     * Executes an upload to via retrofit and returns a Result.
+     *
+     * @param uri the selected image from the users system storage
+     * @param title an optional title for the image, sent to the imgur api
+     */
     override suspend fun uploadFile(uri: Uri, title: String?): Result<Upload> {
         return try{
 
@@ -25,7 +33,7 @@ class UploadRepositoryImp(private val imgurApi: ImgurApi, private val contentRes
 
             val response = imgurApi.uploadFile(
                 filePart,
-                name = file.name.toRequestBody()
+                name =  title?.toRequestBody() ?: file.name.toRequestBody()
             )
 
             if(response.isSuccessful){
@@ -39,8 +47,7 @@ class UploadRepositoryImp(private val imgurApi: ImgurApi, private val contentRes
     }
 
     /**
-     * We need to copy the Uri's input stream to the file system to temporarily
-     * access it as a [File] to prepare it for upload.
+     * Creates a temporary file from a Uri, preparing it for upload.
      */
     private fun copyStreamToFile(uri: Uri): File {
         val outputFile = File.createTempFile("temp", null)

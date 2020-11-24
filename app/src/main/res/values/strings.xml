@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Imgur Api Example</string>
-    <string name="choose_image">Choose image</string>
-    <string name="upload">Upload!</string>
+    <string name="choose_image">Choose an image</string>
+    <string name="upload">Upload to Imgur</string>
+    <string name="error">Error</string>
+    <string name="permission_denied">Storage permission denied.</string>
+    <string name="settings">Settings</string>
 </resources>

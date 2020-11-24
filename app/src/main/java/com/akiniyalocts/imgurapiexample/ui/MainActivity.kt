@@ -3,13 +3,13 @@ package com.akiniyalocts.imgurapiexample.ui
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.net.toFile
-import com.akiniyalocts.imgurapiexample.api.ImgurApi
+import android.provider.Settings
+import androidx.appcompat.app.AppCompatActivity
 import com.akiniyalocts.imgurapiexample.R
 import com.akiniyalocts.imgurapiexample.databinding.ActivityMainBinding
-import org.koin.android.ext.android.inject
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import permissions.dispatcher.PermissionRequest
 import permissions.dispatcher.ktx.constructPermissionsRequest
@@ -17,6 +17,24 @@ import permissions.dispatcher.ktx.constructPermissionsRequest
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
+
+    /**
+     * A permission request for storage to access the users camera roll.
+     * https://github.com/permissions-dispatcher/PermissionsDispatcher/tree/master/ktx
+     */
+    private val storageRequest = constructPermissionsRequest(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        onShowRationale = ::onShowStoragePermissionRationale,
+        onPermissionDenied = ::onStoragePermissionDenied,
+        onNeverAskAgain = ::onStoragePermissionNeverAskAgain
+    ) {
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_OPEN_DOCUMENT
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_IMAGE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,20 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val storageRequest = constructPermissionsRequest(
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        onShowRationale = ::onShowStoragePermissionRationale,
-        onPermissionDenied = ::onStoragePermissionDenied,
-        onNeverAskAgain = ::onStoragePermissionNeverAskAgain
-    ) {
-        val intent = Intent().apply {
-            type = "image/*"
-            action = Intent.ACTION_OPEN_DOCUMENT
-            addCategory(Intent.CATEGORY_OPENABLE)
-        }
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), RC_PICK_PHOTO)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -55,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             val uri = data?.data ?: return
 
             when (requestCode) {
-                RC_PICK_PHOTO -> {
+                REQUEST_IMAGE -> {
 
                     val takeFlags = data.flags.and(Intent.FLAG_GRANT_READ_URI_PERMISSION).or(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 
@@ -64,7 +68,11 @@ class MainActivity : AppCompatActivity() {
                         viewModel.selectedImageUri(uri)
                     }
                     catch (e: SecurityException){
-                        //TODO: show security exception details
+                        MaterialAlertDialogBuilder(this)
+                            .setTitle(R.string.error)
+                            .setMessage(e.localizedMessage)
+                            .create()
+                            .show()
                     }
 
                 }
@@ -77,13 +85,17 @@ class MainActivity : AppCompatActivity() {
         request.proceed()
     }
     private fun onStoragePermissionDenied() {
-
+        Snackbar.make(binding.root, R.string.permission_denied, Snackbar.LENGTH_LONG).setAction(R.string.settings){
+            startActivity(Intent(Settings.ACTION_SETTINGS))
+        }
     }
     private fun onStoragePermissionNeverAskAgain() {
-
+        Snackbar.make(binding.root, R.string.permission_denied, Snackbar.LENGTH_LONG).setAction(R.string.settings){
+            startActivity(Intent(Settings.ACTION_SETTINGS))
+        }
     }
 
     companion object{
-        private const val RC_PICK_PHOTO = 2001
+        private const val REQUEST_IMAGE = 2021
     }
 }
