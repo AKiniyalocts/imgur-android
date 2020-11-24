@@ -10,6 +10,7 @@ import com.akiniyalocts.imgurapiexample.utils.AsyncState
 import com.akiniyalocts.imgurapiexample.utils.Fail
 import com.akiniyalocts.imgurapiexample.utils.Loading
 import com.akiniyalocts.imgurapiexample.utils.Success
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val uploadRepository: UploadRepository): ViewModel() {
@@ -20,18 +21,23 @@ class MainViewModel(private val uploadRepository: UploadRepository): ViewModel()
         imageUri.value = uri
     }
 
-    fun uploadImage() = viewModelScope.launch{
-        val uri = imageUri.value ?: return@launch
+    fun uploadImage() {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+            uploadData.postValue(Fail(exception))
+        }
+        viewModelScope.launch(coroutineExceptionHandler) {
+            val uri = imageUri.value ?: return@launch
 
-        uploadData.postValue(Loading)
-        uploadRepository.uploadFile(uri).fold(
-            {
-                uploadData.postValue(Success(it))
-            },
-            {
-                uploadData.postValue(Fail(it))
-            }
-        )
+            uploadData.postValue(Loading)
+            uploadRepository.uploadFile(uri).fold(
+                {
+                    uploadData.postValue(Success(it))
+                },
+                {
+                    uploadData.postValue(Fail(it))
+                }
+            )
+        }
     }
 
 }

@@ -68,7 +68,8 @@ dependencies {
 
     implementation(Retrofit.retrofit)
     implementation(Retrofit.retrofitConverterMoshi)
-    implementation(Retrofit.retrofitLogging)
+    implementation(OkHttp.okhttp)
+    implementation(OkHttp.okhttpLogging)
 
     implementation(Moshi.moshi)
     kapt(Moshi.moshiCodeGen)

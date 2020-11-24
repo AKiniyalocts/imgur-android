@@ -15,7 +15,7 @@ object Versions {
     const val lifeCycle = "2.2.0"
 
     const val retrofit = "2.9.0"
-    const val retrofitLogging = "4.2.1"
+    const val okHttp = "4.9.0"
 
     const val moshi = "1.9.3"
 
@@ -45,7 +45,11 @@ object Koin {
 object Retrofit{
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     val retrofitConverterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
-    val retrofitLogging = "com.squareup.okhttp3:logging-interceptor:${Versions.retrofitLogging}"
+}
+
+object OkHttp{
+    val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    val okhttpLogging = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
 }
 
 /**

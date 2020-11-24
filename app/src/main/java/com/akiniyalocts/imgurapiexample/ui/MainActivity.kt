@@ -3,9 +3,11 @@ package com.akiniyalocts.imgurapiexample.ui
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
+import com.akiniyalocts.imgurapiexample.BuildConfig
 import com.akiniyalocts.imgurapiexample.R
 import com.akiniyalocts.imgurapiexample.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -84,15 +86,19 @@ class MainActivity : AppCompatActivity() {
     private fun onShowStoragePermissionRationale(request: PermissionRequest) {
         request.proceed()
     }
+
     private fun onStoragePermissionDenied() {
-        Snackbar.make(binding.root, R.string.permission_denied, Snackbar.LENGTH_LONG).setAction(R.string.settings){
-            startActivity(Intent(Settings.ACTION_SETTINGS))
-        }
+        showPermissionErrorSnackbar()
     }
+
     private fun onStoragePermissionNeverAskAgain() {
+       showPermissionErrorSnackbar()
+    }
+
+    private fun showPermissionErrorSnackbar(){
         Snackbar.make(binding.root, R.string.permission_denied, Snackbar.LENGTH_LONG).setAction(R.string.settings){
-            startActivity(Intent(Settings.ACTION_SETTINGS))
-        }
+            startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + BuildConfig.APPLICATION_ID)))
+        }.show()
     }
 
     companion object{

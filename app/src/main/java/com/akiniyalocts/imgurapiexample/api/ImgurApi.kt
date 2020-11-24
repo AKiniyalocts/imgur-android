@@ -20,7 +20,6 @@ interface ImgurApi {
      */
     @Multipart
     @POST("/3/upload")
-    @Headers("Authorization: Client-ID ${ApiKeys.CLIENT_ID}")
     suspend fun uploadFile(
         @Part image: MultipartBody.Part?,
         @Part("name") name: RequestBody? = null
