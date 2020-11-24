@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.net.toFile
 import com.akiniyalocts.imgurapiexample.api.ImgurApi
 import com.akiniyalocts.imgurapiexample.R
 import com.akiniyalocts.imgurapiexample.databinding.ActivityMainBinding

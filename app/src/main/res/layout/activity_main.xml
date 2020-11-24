@@ -35,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/uploadImageButton"
+        android:onClick="@{() -> viewModel.uploadImage()}"
         app:uploadUri="@{viewModel.imageUri}"
         app:layout_constraintTop_toBottomOf="@id/chooseImageButton"
         app:layout_constraintStart_toStartOf="@id/chooseImageButton"
