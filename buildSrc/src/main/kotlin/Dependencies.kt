@@ -19,7 +19,7 @@ object Versions {
 
     const val moshi = "1.9.3"
 
-    const val coil = "1.0.0"
+    const val permissionsDispatcher = "1.0.1"
 }
 object Kotlin{
     val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
@@ -48,11 +48,17 @@ object Retrofit{
     val retrofitLogging = "com.squareup.okhttp3:logging-interceptor:${Versions.retrofitLogging}"
 }
 
+/**
+ * https://github.com/square/moshi
+ */
 object Moshi{
     val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
     val moshiCodeGen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
 }
 
-object Coil{
-    val coil = "io.coil-kt:coil:${Versions.coil}"
+/**
+ * https://github.com/permissions-dispatcher/PermissionsDispatcher/tree/master/ktx
+ */
+object PermissionsDispatcher{
+    val permissions = "org.permissionsdispatcher:permissionsdispatcher-ktx:${Versions.permissionsDispatcher}"
 }

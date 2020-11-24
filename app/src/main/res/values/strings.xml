@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Imgur Api Example</string>
+    <string name="choose_image">Choose image</string>
+    <string name="upload">Upload!</string>
 </resources>

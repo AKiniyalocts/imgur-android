@@ -17,6 +17,10 @@ android {
 
     }
 
+    buildFeatures {
+        dataBinding = true
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -69,6 +73,6 @@ dependencies {
     implementation(Moshi.moshi)
     kapt(Moshi.moshiCodeGen)
 
-    implementation(Coil.coil)
+    implementation(PermissionsDispatcher.permissions)
 
 }
