@@ -1,77 +1,83 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.akiniyalocts.imgurapiexample.ui.MainViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="akiniyalocts.imgurapiexample.activities.MainActivity">
+    tools:context=".ui.MainActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/toolbar"
+        app:title="@string/app_name"
+        android:background="@color/primaryColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
+        android:layout_height="300dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic"
+        app:uriImage="@{viewModel.imageUri}"
+        android:scaleType="centerCrop"
+        android:id="@+id/uploadImage"/>
 
-    <!-- Dummy item to prevent TextView from receiving initial focus -->
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+    <Button
+        android:id="@+id/chooseImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadImage" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/uploadImageButton"
+        app:buttonVisibility="@{viewModel.uploadData}"
+        android:onClick="@{() -> viewModel.uploadImage()}"
+        app:uploadUri="@{viewModel.imageUri}"
+        app:layout_constraintTop_toBottomOf="@id/chooseImageButton"
+        app:layout_constraintStart_toStartOf="@id/chooseImageButton"
+        app:layout_constraintEnd_toEndOf="@id/chooseImageButton"
+        android:text="@string/upload"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        tools:context=".MainActivity">
+    <com.google.android.material.progressindicator.ProgressIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:id="@+id/uploadProgress"
+        app:progressVisibility="@{viewModel.uploadData}"
+        style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Indeterminate"
+        app:layout_constraintTop_toTopOf="@id/uploadImageButton"
+        app:layout_constraintBottom_toBottomOf="@id/uploadImageButton"
+        app:layout_constraintStart_toStartOf="@id/uploadImageButton"
+        app:layout_constraintEnd_toEndOf="@id/uploadImageButton"/>
 
-        <ImageView
-            android:id="@+id/imageview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:adjustViewBounds="true"
-            android:maxHeight="250dp"
-            android:minHeight="250dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_photo_library_black" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resultsLink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uploadImageButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:completedUploadLink="@{viewModel.uploadData}"
+        android:autoLink="web"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textColorLink="@color/primaryColor"
+        tools:text="https://i.imgur.com/D2zw1aV.jpg"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_title"
-            style="@style/DefTextInputLayout"
-            android:layout_below="@+id/imageview"
-            android:layout_centerVertical="true">
-
-            <EditText
-                android:id="@+id/editText_upload_title"
-                style="@style/DefEditText"
-                android:hint="@string/title"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_desc"
-            style="@style/DefTextInputLayout"
-            android:layout_below="@id/til_title">
-
-            <EditText
-                android:id="@+id/editText_upload_desc"
-                style="@style/DefEditText"
-                android:hint="@string/description"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_cloud_upload"
-            app:fabSize="normal" />
-
-    </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
