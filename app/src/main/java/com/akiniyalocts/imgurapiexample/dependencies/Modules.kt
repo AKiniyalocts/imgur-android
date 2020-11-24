@@ -1,6 +1,8 @@
 package com.akiniyalocts.imgurapiexample.dependencies
 
 import com.akiniyalocts.imgurapiexample.api.ImgurApi
+import com.akiniyalocts.imgurapiexample.repo.UploadRepository
+import com.akiniyalocts.imgurapiexample.repo.UploadRepositoryImp
 import com.akiniyalocts.imgurapiexample.ui.MainViewModel
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
@@ -37,8 +39,11 @@ val appModule = module {
             .build()
     }
 
+    single<UploadRepository> {
+        UploadRepositoryImp(get(), get())
+    }
 }
 
 val viewModelModule = module {
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MainViewModel(get()) }
 }
