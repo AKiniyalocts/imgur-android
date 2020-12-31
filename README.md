@@ -7,8 +7,8 @@ Just about everything you need is setup for you. Import the project into Android
 ## Architecture
 The project uses the following dependencies for various things:
 - [Koin](https://insert-koin.io/) dependency management
-- [Retrofit](https://square.github.io/retrofit/) rest API 
-- [Kotlin Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) background processesing
+- [Retrofit](https://square.github.io/retrofit/) REST API 
+- [Kotlin Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) background processing
 - [Moshi](https://github.com/square/moshi) JSON serialization
 - [Databinding](https://developer.android.com/topic/libraries/data-binding/) 
 
